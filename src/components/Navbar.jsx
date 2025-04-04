@@ -15,7 +15,7 @@ import {
   FaSignInAlt,
   FaUserPlus,
   FaCog,
-  FaTachometerAlt, 
+  FaTachometerAlt,
 } from "react-icons/fa";
 import { MdSchool } from "react-icons/md";
 
@@ -290,7 +290,10 @@ const Navbar = () => {
                 <Link
                   to="/profile"
                   className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  onClick={() => setIsUserDropdownOpen(false)}
+                  onClick={() => {
+                    setIsUserDropdownOpen(false);
+                    console.log("Profile link clicked"); // Add this line
+                  }}
                 >
                   <FaUserCircle className="h-4 w-4 mr-2 inline-block" />
                   Profile
@@ -304,12 +307,12 @@ const Navbar = () => {
                   Dashboard
                 </Link>
                 <Link
-                  to="/settings"
+                  to="/setting"
                   className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
                   onClick={() => setIsUserDropdownOpen(false)}
                 >
                   <FaCog className="h-4 w-4 mr-2 inline-block" />
-                  Settings
+                  Setting
                 </Link>
                 <Link
                   to="/login"

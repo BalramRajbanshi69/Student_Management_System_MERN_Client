@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import studentContext from "../context/StudentContext";
+import { PiDotsThreeOutlineBold } from "react-icons/pi";
 import { motion } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import StudentBg from "../assets/student.jpg";
@@ -211,7 +212,9 @@ const Students = () => {
                           onClick={() => handleMenu(student._id)}
                           className="text-gray-500 hover:text-gray-700 focus:outline-none"
                         >
-                          <span className="text-xl">...</span>
+                          <span className="text-xl cursor-pointer">
+                            <PiDotsThreeOutlineBold size={16}/>
+                          </span>
                         </button>
                         {menuVisible[student._id] && (
                           <div className="absolute right-0 mt-2 bg-white border rounded-md shadow-lg w-24 z-10">

@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import studentContext from "./StudentContext";
 
@@ -19,7 +18,7 @@ const StudentState = ({ children }) => {
   const getAllStudents = async (searchQuery = "", page = 1, limit = 10) => {
     try {
       const response = await fetch(
-        `http://localhost:3000/api/students/?searchQuery=${searchQuery}&page=${page}&limit=${limit}`,
+        `https://student-management-system-mern-server.onrender.com/api/students/?searchQuery=${searchQuery}&page=${page}&limit=${limit}`,
         {
           method: "GET",
           headers: {
@@ -50,14 +49,17 @@ const StudentState = ({ children }) => {
   // Add student
   const addStudent = async (newStudent) => {
     try {
-      const response = await fetch("http://localhost:3000/api/students", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify(newStudent),
-      });
+      const response = await fetch(
+        "https://student-management-system-mern-server.onrender.com/api/students",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify(newStudent),
+        }
+      );
       const data = await response.json();
       if (response.ok) {
         setStudents((prevStudents) => [...prevStudents, data.student]);
@@ -73,14 +75,17 @@ const StudentState = ({ children }) => {
   // Update students
   const updateStudent = async (id, updatedData) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/students/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify(updatedData),
-      });
+      const response = await fetch(
+        `https://student-management-system-mern-server.onrender.com/api/students/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify(updatedData),
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setStudents((prevStudents) =>
@@ -101,13 +106,16 @@ const StudentState = ({ children }) => {
   // Delete students
   const deleteStudent = async (id) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/students/${id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-      });
+      const response = await fetch(
+        `https://student-management-system-mern-server.onrender.com/api/students/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+        }
+      );
       if (response.ok) {
         setStudents((prevStudents) =>
           prevStudents.filter((student) => student._id !== id)

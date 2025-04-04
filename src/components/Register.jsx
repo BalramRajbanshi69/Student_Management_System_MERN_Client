@@ -86,7 +86,7 @@ const Register = () => {
       const { name, email, password } = credentials;
       try {
         const response = await fetch(
-          "http://localhost:3000/api/auth/registeruser",
+          "https://student-management-system-mern-server.onrender.com/api/auth/registeruser",
           {
             method: "POST",
             headers: {
@@ -151,7 +151,7 @@ const Register = () => {
   return (
     <motion.div
       className="bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mt-10" // Added mt-16 for margin from top
-      style={{ minHeight: "calc(100vh - 4rem)"}} // Adjusted minHeight
+      style={{ minHeight: "calc(100vh - 4rem)" }} // Adjusted minHeight
       initial="hidden"
       animate="visible"
     >

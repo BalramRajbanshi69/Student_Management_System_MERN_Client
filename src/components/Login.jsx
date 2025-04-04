@@ -69,7 +69,7 @@ const Login = () => {
       const { email, password } = credentials;
       try {
         const response = await fetch(
-          "http://localhost:3000/api/auth/loginuser",
+          "https://student-management-system-mern-server.onrender.com/api/auth/loginuser",
           {
             method: "POST",
             headers: {

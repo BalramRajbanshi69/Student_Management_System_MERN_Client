@@ -80,19 +80,22 @@ const AddStudent = () => {
     }
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/students", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": localStorage.getItem("token"),
-        },
-        body: JSON.stringify({
-          name: student.name,
-          email: student.email,
-          age: parseInt(student.age),
-          course: student.course,
-        }),
-      });
+      const response = await fetch(
+        "https://student-management-system-mern-server.onrender.com/api/students",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
+          },
+          body: JSON.stringify({
+            name: student.name,
+            email: student.email,
+            age: parseInt(student.age),
+            course: student.course,
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -101,9 +104,7 @@ const AddStudent = () => {
         toast.success("Student added successfully!");
         setStudent({ name: "", email: "", age: "", course: "" });
         setErrors({ name: "", email: "", age: "", course: "" });
-        setTimeout(() => {
-          navigate("/students");
-        }, 1000);
+        navigate("/students");
       } else {
         toast.error(data?.errors?.[0]?.msg || "Failed to add student");
         console.error("Failed to add student:", data);

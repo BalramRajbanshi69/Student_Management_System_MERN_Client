@@ -1,6 +1,6 @@
-
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +11,8 @@ const Contact = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const validateForm = () => {
     let tempErrors = {};
@@ -43,18 +45,52 @@ const Contact = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setSuccessMessage("");
+    setErrorMessage("");
+
     if (validateForm()) {
-      // Handle form submission here
-      console.log("Form submitted:", formData);
-      // Reset form
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+      try {
+        const response = await fetch(
+          "https://student-management-system-mern-server.onrender.com/api/contact",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+
+        const data = await response.json();
+        console.log("contact data", data);
+
+        if (response.ok) {
+          toast.success("Message sent successfully!");
+          setSuccessMessage(data.message);
+          setFormData({
+            name: "",
+            email: "",
+            subject: "",
+            message: "",
+          });
+          setSuccessMessage(
+            "Thank you for your message. We'll get back to you soon!"
+          );
+        } else {
+          toast.error(data.message || "Failed to send message");
+          setErrorMessage(
+            data.message || "Failed to submit form. Please try again."
+          );
+        }
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        toast.error("Network error. Please try again later.");
+        setErrorMessage("An error occurred. Please try again later.");
+      }
+    } else {
+      toast.error("Please fix the errors in the form");
     }
   };
 
@@ -101,6 +137,12 @@ const Contact = () => {
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <div className="bg-white rounded-lg shadow-md p-8">
+                {successMessage && (
+                  <div className="text-green-600 mb-4">{successMessage}</div>
+                )}
+                {errorMessage && (
+                  <div className="text-red-600 mb-4">{errorMessage}</div>
+                )}
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label
@@ -120,7 +162,9 @@ const Contact = () => {
                       placeholder="Your Name"
                     />
                     {errors.name && (
-                      <p className="text-red-500 text-xs italic">{errors.name}</p>
+                      <p className="text-red-500 text-xs italic">
+                        {errors.name}
+                      </p>
                     )}
                   </div>
                   <div>
@@ -141,7 +185,9 @@ const Contact = () => {
                       placeholder="Your Email"
                     />
                     {errors.email && (
-                      <p className="text-red-500 text-xs italic">{errors.email}</p>
+                      <p className="text-red-500 text-xs italic">
+                        {errors.email}
+                      </p>
                     )}
                   </div>
                   <div>

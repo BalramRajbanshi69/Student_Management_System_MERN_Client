@@ -15,6 +15,7 @@ import AddStudent from "./components/AddStudent";
 import Toast from "./pages/Toast";
 import SearchResult from "./components/SearchResult";
 import Profile from "./components/Profile";
+import Setting from "./components/Setting";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/search/:searchQuery" element={<SearchResult />} />
+            <Route path="/setting" element={<Setting />} />
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </Router>
