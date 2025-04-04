@@ -1,9 +1,14 @@
-
 import React from "react";
 import { motion } from "framer-motion";
-import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material"; // Keeping icons for familiarity, but not using Material UI table
+import { Edit as EditIcon, Delete as DeleteIcon } from "@mui/icons-material"; 
 
-const StudentTable = ({ students, handleDelete, handleEdit }) => {
+const StudentTable = ({
+  students,
+  handleDelete,
+  handleEdit,
+  currentPage,
+  limit,
+}) => {
   return (
     <motion.div
       className="overflow-x-auto shadow-md sm:rounded-lg"
@@ -48,7 +53,7 @@ const StudentTable = ({ students, handleDelete, handleEdit }) => {
                 scope="row"
                 className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
               >
-                {index + 1}
+                {(currentPage - 1) * limit + index + 1}
               </th>
 
               <td className="px-6 py-4 text-gray-800 dark:text-gray-300">

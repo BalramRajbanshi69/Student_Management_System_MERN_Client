@@ -42,7 +42,7 @@ const Students = () => {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(10); // Matches backend default
+  const [limit, setLimit] = useState(10); 
 
   const handleDeleteWithToast = UseAdvancedDeleteConfirmation(
     deleteStudent,
@@ -52,7 +52,7 @@ const Students = () => {
 
   useEffect(() => {
     fetchStudents();
-  }, [searchQuery, currentPage, limit]); // Fetch when these change
+  }, [searchQuery, currentPage, limit]); 
 
   const fetchStudents = async () => {
     try {
@@ -213,7 +213,7 @@ const Students = () => {
                           className="text-gray-500 hover:text-gray-700 focus:outline-none"
                         >
                           <span className="text-xl cursor-pointer">
-                            <PiDotsThreeOutlineBold size={16}/>
+                            <PiDotsThreeOutlineBold size={16} />
                           </span>
                         </button>
                         {menuVisible[student._id] && (
@@ -297,6 +297,8 @@ const Students = () => {
               students={students}
               handleDelete={handleDelete}
               handleEdit={handleEditClick}
+              currentPage={currentPage} 
+              limit={limit} 
             />
             {totalPages > 1 && (
               <div className="flex justify-center items-center mt-6">

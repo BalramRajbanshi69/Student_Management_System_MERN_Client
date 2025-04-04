@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -7,8 +5,8 @@ import StudentloginImage from "../assets/student-login.jpg";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
-
 const Login = () => {
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     email: "",
@@ -68,16 +66,13 @@ const Login = () => {
       setLoading(true);
       const { email, password } = credentials;
       try {
-        const response = await fetch(
-          "https://student-management-system-mern-server.onrender.com/api/auth/loginuser",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-          }
-        );
+        const response = await fetch(`${apiUrl}/api/auth/loginuser`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
 
         const data = await response.json();
         console.log("form submitted", data);

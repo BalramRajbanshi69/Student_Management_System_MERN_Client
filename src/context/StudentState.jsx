@@ -3,6 +3,7 @@ import studentContext from "./StudentContext";
 
 const StudentState = ({ children }) => {
   const [students, setStudents] = useState([]); // Initialize as empty array
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const [courses] = useState([
     "Computer Science",
     "Data Science",
@@ -18,7 +19,7 @@ const StudentState = ({ children }) => {
   const getAllStudents = async (searchQuery = "", page = 1, limit = 10) => {
     try {
       const response = await fetch(
-        `https://student-management-system-mern-server.onrender.com/api/students/?searchQuery=${searchQuery}&page=${page}&limit=${limit}`,
+        `${apiUrl}/api/students/?searchQuery=${searchQuery}&page=${page}&limit=${limit}`,
         {
           method: "GET",
           headers: {
@@ -50,7 +51,7 @@ const StudentState = ({ children }) => {
   const addStudent = async (newStudent) => {
     try {
       const response = await fetch(
-        "https://student-management-system-mern-server.onrender.com/api/students",
+        `${apiUrl}/api/students`,
         {
           method: "POST",
           headers: {
@@ -76,7 +77,7 @@ const StudentState = ({ children }) => {
   const updateStudent = async (id, updatedData) => {
     try {
       const response = await fetch(
-        `https://student-management-system-mern-server.onrender.com/api/students/${id}`,
+        `${apiUrl}/api/students/${id}`,
         {
           method: "PUT",
           headers: {
@@ -107,7 +108,7 @@ const StudentState = ({ children }) => {
   const deleteStudent = async (id) => {
     try {
       const response = await fetch(
-        `https://student-management-system-mern-server.onrender.com/api/students/${id}`,
+        `${apiUrl}/api/students/${id}`,
         {
           method: "DELETE",
           headers: {

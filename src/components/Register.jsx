@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
 const Register = () => {
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({
     name: "",
@@ -86,7 +87,7 @@ const Register = () => {
       const { name, email, password } = credentials;
       try {
         const response = await fetch(
-          "https://student-management-system-mern-server.onrender.com/api/auth/registeruser",
+          `${apiUrl}/api/auth/registeruser`,
           {
             method: "POST",
             headers: {

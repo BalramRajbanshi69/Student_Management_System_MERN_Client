@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { toast } from "react-toastify";
 
 const Contact = () => {
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -52,16 +53,13 @@ const Contact = () => {
 
     if (validateForm()) {
       try {
-        const response = await fetch(
-          "https://student-management-system-mern-server.onrender.com/api/contact",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
-          }
-        );
+        const response = await fetch(`${apiUrl}/api/contact`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
 
         const data = await response.json();
         console.log("contact data", data);

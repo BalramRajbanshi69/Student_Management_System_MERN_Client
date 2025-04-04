@@ -6,6 +6,7 @@ import studentContext from "../context/StudentContext";
 
 const AddStudent = () => {
   const { courses } = useContext(studentContext);
+  const apiUrl = import.meta.env.VITE_REACT_API_URL;
   const navigate = useNavigate();
   const [student, setStudent] = useState({
     name: "",
@@ -80,22 +81,19 @@ const AddStudent = () => {
     }
     setLoading(true);
     try {
-      const response = await fetch(
-        "https://student-management-system-mern-server.onrender.com/api/students",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": localStorage.getItem("token"),
-          },
-          body: JSON.stringify({
-            name: student.name,
-            email: student.email,
-            age: parseInt(student.age),
-            course: student.course,
-          }),
-        }
-      );
+      const response = await fetch(`${apiUrl}/api/students`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "auth-token": localStorage.getItem("token"),
+        },
+        body: JSON.stringify({
+          name: student.name,
+          email: student.email,
+          age: parseInt(student.age),
+          course: student.course,
+        }),
+      });
 
       const data = await response.json();
 
